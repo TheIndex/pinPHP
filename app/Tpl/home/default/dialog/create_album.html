@@ -1,0 +1,39 @@
+<div class="dialog_create_album clearfix">
+    <form id="J_album_form" action="{:U('album/create_album')}" method="post">
+	<dl>
+        <dt>{:L('album_title')}：</dt>
+        <dd><input type="text" id="J_album_title" class="input_text album_title" name="title" value=""></dd>
+    </dl>
+    <dl>
+        <dt>{:L('cate')}：</dt>
+        <dd>
+            <select name="cate_id">
+                <volist name="cate_list" id="cate">
+                <option value="{$cate.id}">{$cate.name}</option>
+                </volist>
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt>{:L('desc')}：</dt>
+        <dd><textarea class="input_text album_intro" name="intro"></textarea></dd>
+    </dl>
+    <dl>
+        <dt>{:L('album_cover')}：</dt>
+        <dd>
+            <div class="clearfix">
+                <div id="J_upload_banner" class="upload_btn"><span>{:L('upload_img')}</span></div>
+            </div>
+            <div class="upload_show">
+                <p class="gray">{:L('album_cover_desc')}</p>
+                <p class="J_preview banner_preview"></p>
+            </div>
+        </dd>
+    </dl>
+    <dl>
+        <dt></dt>
+        <dd><input type="submit" class="btn" value="{:L('ok')}"></dd>
+    </dl>
+    <input type="hidden" id="J_banner" name="banner" value="" />
+    </form>
+</div>

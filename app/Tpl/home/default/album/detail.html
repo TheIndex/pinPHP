@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/album.css" />
+</head>
+<body>
+<include file="public:header" />
+<div class="main_wrap">
+
+    <div class="album_nav pt10">
+        <span><a href="{:U('album/index')}">{:L('album')}</a></span>/
+        <span><a href="{:U('space/album', array('uid'=>$album['uid']))}">{$album.uname}{:L('for_album')}</a></span>
+    </div>
+
+    <div class="album_cover r3" <notempty name="album['banner']">style="background:url({:attach($album['banner'], 'album')});"</notempty>>
+        <div class="album_title_info rr5"><h1 class="album_title fl">{$album.title}</h1></div>
+    </div>
+    <if condition="$album['uid'] eq $visitor['id']">
+    <div class="J_album_item add_album_content" data-aid="{$album.id}">
+        <a href="javascript:;" class="J_shareitem_btn fl add_album_content_btn" data-aid="{$album.id}">{:L('album_add_item')}</a>
+        <a href="javascript:;" class="J_edit fl edit">{:L('edit')}</a>
+        <a href="javascript:;" class="J_del fl delete">{:L('delete')}</a>
+    </div>
+    </if>
+    <div class="wall_wrap clearfix">
+        <div id="J_waterfall" class="wall_container album_item_list clearfix" data-uri="__ROOT__/?m=album&a=detail_ajax&id={$album.id}&p={$p}" data-distance="1200">
+            <div class="J_item album_info">
+                <div class="user_info clearfix">
+                    <a href="{:U('space/index', array('uid'=>$album['uid']))}" target="_blank"><img src="{:avatar($album['uid'], '48')}" class="J_card fl r3" data-uid="{$album.uid}" alt="{$album.uname}"></a>
+                    <div class="user_name">
+                        <a href="{:U('space/index', array('uid'=>$album['uid']))}" class="J_card clr6 bold" data-uid="{$album.uid}" target="_blank">{$album.uname}</a>
+                        <if condition="$album['uid'] neq $visitor['id']">
+                        <div class="J_follow_bar" data-uid="{$album.uid}">
+                            <if condition="$author_ship eq 0">
+                            <a href="javascript:;" class="J_fo_u fo_u_btn">{:L('follow')}</a>
+                            <elseif condition="$author_ship eq 1"/>
+                            <span class="fo_u_ok">{:L('followed')}</span><a href="javascript:;" class="J_unfo_u green">{:L('cancel')}</a>
+                            <elseif condition="$author_ship eq 2"/>
+                            <span class="fo_u_all">{:L('follow_mutually')}</span><a href="javascript:;" class="J_unfo_u green">{:L('cancel')}</a>
+                            </if>
+                        </div>
+                        </if>
+                    </div>
+                    <div class="user_collect_info">
+                        <span>{:L('item')}<b>{$album.items}</b></span>
+                        <span>{:L('like')}<b>{$album.likes}</b></span>
+                        <span>{:L('follow')}<b>{$album.follows}</b></span>
+                    </div>
+                </div>
+                <notempty name="album['intro']">
+                <div class="album_intro">{$album.intro}</div>
+                </notempty>
+                <div class="more_albums">
+                    <h3><a href="{:U('space/album', array('uid'=>$album['uid']))}" class="all" target="_blank">{:L('show_all')}</a>{:L('author_more_album')}</h3>
+                    <ul>
+                        <pin:album type="lists" num="10" uid="$album['uid']">
+                        <volist name="data" id="val">
+                        <li><a href="{:U('album/detail', array('id'=>$val['id']))}" target="_blank"><span class="num">{$val.items}{:L('item')}</span>{$val.title}</a></li>
+                        </volist>
+                        </pin:album>
+                    </ul>
+                </div>
+            </div>
+            <include file="public:waterfall" />
+        </div>
+        <present name="show_load">
+        <div id="J_wall_loading" class="wall_loading tc gray"><span>{:L('loading')}</span></div>
+        </present>
+        
+        <present name="page_bar">
+        <div id="J_wall_page" class="wall_page" <present name="show_page">style="display:block;"</present>>
+            <div class="page_bar">{$page_bar}</div>
+        </div>
+        </present>
+    </div>
+
+    <div class="album_about">
+        <div id="J_albumcmt_area" class="album_pub fl" data-aid="{$album.id}">
+            <h3>{:L('album_cmt_title')}</h3>
+            <div class="pub_area">
+                <div class="pub_area_bd">
+                    <textarea id="J_albumcmt_content" class="pub_txt" def-val="{:L('album_cmt_def')}">{:L('album_cmt_def')}</textarea>
+                </div>
+                <div class="pub_area_ft">
+                    <a href="javascript:;" id="J_albumcmt_submit" class="btn fr">{:L('ok')}</a>
+                </div>
+            </div>  
+            <div class="note_comment">
+                <ul id="J_albumcmt_list" class="c_l rb5">
+                    <volist name="cmt_list" id="val">
+                    <li> 
+                        <a href="{:U('space/index', array('uid'=>$val['uid']))}" target="_blank"><img src="{:avatar($val['uid'], 48)}" class="J_card avt" data-uid="{$val.uid}" /></a>
+                        <p><a href="{:U('space/index', array('uid'=>$val['uid']))}" class="J_card n" data-uid="{$val.uid}" target="_blank">{$val.uname}</a></p>
+                        <p>{$val.info}<span>&nbsp;&nbsp;&nbsp;{$val.add_time|fdate}</span></p>
+                    </li>
+                    </volist>
+                </ul>
+                <div id="J_albumcmt_page" class="page_bar">{$cmt_page_bar}</div>
+            </div>
+        </div>
+        <div class="album_reco fl">
+            <h3>{:L('album_follow_title')}</h3>
+            <div class="album_look">
+                <present name="is_followed">
+                <a href="javascript:;" class="J_unfollow_album album_unlook_link fl" data-aid="{$album.id}">{:L('unfollow_album')}</a> 
+                <else/>
+                <a href="javascript:;" class="J_follow_album album_look_link fl" data-aid="{$album.id}">{:L('follow_album')}</a>
+                </present>
+                <p class="fl"><span id="J_afn_{$album.id}">{$album.follows}</span>人</p>
+            </div>
+            <div class="album_share">
+            <h3>{:L('album_share_title')}：</h3>
+                <!-- Baidu Button BEGIN -->
+                <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+                <a class="bds_tsina"></a>
+                <a class="bds_qzone"></a>
+                <a class="bds_tqq"></a>
+                <a class="bds_renren"></a>
+                <span class="bds_more"></span>
+                </div>
+                <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" ></script>
+                <script type="text/javascript" id="bdshell_js"></script>
+                <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+                </script>
+                <!-- Baidu Button END -->
+            </div>
+        </div>
+        <div class="album_guess fl">
+            <h3><a target="_blank" href="{:U('album/index')}" class="all fr">{:L('show_all')}</a>{:L('album_guess_title')}</h3>
+            <ul class="album_guess_list">
+                <volist name="album_guess" id="val">
+                <li class="J_album_item album_item">
+                    <div class="album_author">
+                        <a target="_blank" href="{:U('space/index', array('uid'=>$val['uid']))}">
+                        <img src="{:avatar($val['uid'], '32')}" class="J_card avt fl " data-uid="{$val.uid}" alt="{$val.uname}">
+                        </a>
+                        <div class="album_info">
+                            <p><a title="{$val.title}" href="{:U('album/detail', array('id'=>$val['id']))}" class="album_title" target="_blank">{$val.title}</a></p>
+                            <p class="u_link"><a href="{:U('space/index', array('uid'=>$val['uid']))}" class="J_card n" data-uid="{$val.uid}" target="_blank">{$val.uname}</a></p>
+                        </div>
+                    </div>
+                    <ul>
+                        <for start="0" end=":C('pin_album_cover_items')">
+                        <li class="<if condition="$i eq 0">big<elseif condition="$i eq 1"/>left small<else/>small</if>">
+                            <present name="val['cover'][$i]">
+                            <if condition="$i eq 0">
+                            <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($val['cover'][$i]['img'], '_m'), 'item'))}" />
+                            <else/>
+                            <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($val['cover'][$i]['img'], '_s'), 'item'))}" />
+                            </if>
+                            </present>
+                        </li>
+                        </for>
+                    </ul>
+                    <a href="{:U('album/detail', array('id'=>$val['id']))}" class="album_link" target="_blank"></a>
+                </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<include file="public:footer" />
+<script src="__STATIC__/js/albumcmt.js"></script>
+</body>
+</html>

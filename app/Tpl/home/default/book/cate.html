@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body>
+<include file="public:header" />
+<!--分类页面-->
+<div class="main_wrap">
+    <div class="book_cate">
+        <div class="bcate">
+            <volist name="cate_list['p']" id="bcate">
+            <span <if condition="$tid eq $bcate['id']">class="current"</if>><a href="{:U('book/cate', array('cid'=>$bcate['id']))}" style="color:{$bcate.fcolor}">{$bcate.name}</a><b></b></span>
+            </volist>
+        </div>
+        <ul class="scate clearfix">
+            <volist name="cate_list['s'][$tid]" id="mcate">
+            <li>
+                <a href="{:U('book/cate', array('cid'=>$mcate['id']))}"><span class="scate_title" style="color:{$mcate.fcolor}">{$mcate.name}</span></a>
+                <p class="list_w">
+                    <volist name="cate_list['s'][$mcate['id']]" id="scate">
+                    <span><a href="{:U('book/cate', array('cid'=>$scate['id']))}" <if condition="$cate_info['id'] eq $scate['id']">class="current"</if> style="color:{$scate.fcolor}">{$scate.name}</a></span> 
+                    </volist>
+                </p>
+            </li>
+            </volist>
+        </ul>
+    </div>
+  
+    <div class="cate_sort pt10 clearfix">
+        <h3 class="fl">{$cate_info.name}</h3>
+        <span class="fl">
+            <em class="fl">{:L('sort_order')}：</em>
+            <ul class="fl">
+                <li><a href="{:U('book/cate', array('cid'=>$cate_info['id'], 'sort'=>'pop', 'min_price'=>$min_price, 'max_price'=>$max_price))}" <if condition="$sort eq 'pop'">class="current"</if>>{:L('sort_pop')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('book/cate', array('cid'=>$cate_info['id'], 'sort'=>'hot', 'min_price'=>$min_price, 'max_price'=>$max_price))}" <if condition="$sort eq 'hot'">class="current"</if>>{:L('sort_hot')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('book/cate', array('cid'=>$cate_info['id'], 'sort'=>'new', 'min_price'=>$min_price, 'max_price'=>$max_price))}" <if condition="$sort eq 'new'">class="current"</if>>{:L('sort_new')}</a></li>
+            </ul>
+        </span>
+        <span class="fl"> 
+            <em class="fl">{:L('price')}：</em>
+            <ul class="fl">
+                <li><a href="{:U('book/cate', array('cid'=>$cate_info['id'], 'sort'=>$sort))}" <if condition="$min_price eq '' AND $max_price eq ''">class="current"</if>>{:L('all')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('book/cate', array('cid'=>$cate_info['id'], 'sort'=>$sort, 'max_price'=>'100'))}" <if condition="$max_price eq '100'">class="current"</if>>100{:L('yuan')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('book/cate', array('cid'=>$cate_info['id'], 'sort'=>$sort, 'min_price'=>'100', 'max_price'=>'200'))}" <if condition="$min_price eq '100'">class="current"</if>>200{:L('yuan')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('book/cate', array('cid'=>$cate_info['id'], 'sort'=>$sort, 'min_price'=>'200', 'max_price'=>'500'))}" <if condition="$min_price eq '200'">class="current"</if>>500{:L('yuan')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('book/cate', array('cid'=>$cate_info['id'], 'sort'=>$sort, 'min_price'=>'500'))}" <if condition="$min_price eq '500'">class="current"</if>>{:L('higher')}</a></li>
+            </ul>
+        </span>
+    </div>
+
+	<div class="wall_wrap clearfix">
+        <div id="J_waterfall" class="wall_container clearfix" data-uri="__ROOT__/?m=book&a=cate_ajax&cid={$cate_info.id}&sort={$sort}&min_price={$min_price}&max_price={$max_price}&p={$p}">
+            <include file="public:waterfall" />
+        </div>
+        <present name="show_load">
+        <div id="J_wall_loading" class="wall_loading tc gray"><span>{:L('loading')}</span></div>
+        </present>
+        <present name="page_bar">
+        <div id="J_wall_page" class="wall_page" <present name="show_page">style="display:block;"</present>>
+            <div class="page_bar">{$page_bar}</div>
+        </div>
+        </present>
+    </div>
+
+</div>
+
+<include file="public:footer" />
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/user.css" />
+</head>
+<body>
+<div class="login_wrap">
+<div class="header_wrap pt10">
+    <div class="m_head clearfix">
+        <div class="head_logo"><a href="__ROOT__/" class="logo_b fl" title="{:C('pin_site_name')}">{:C('pin_site_name')}</a></div>
+    </div>
+</div>
+<div class="main_wrap">
+    <div class="login clearfix">
+        <div class="lg_left fl">
+            <h1>{:L('login_title')}</h1>
+            <div class="lg_form">
+                <form id="J_login_form" action="{:U('user/login')}" method="post">
+                    <div class="lg_name clearfix">
+                        <span>{:L('username')}：</span>
+                        <input type="text" name="username" id="J_name" class="input_text" maxlength="20">
+                    </div>
+                    <div class="lg_pass clearfix"> 
+                        <span>{:L('password')}：</span>
+                        <input type="password" name="password" id="J_pass" class="input_text" maxlength="32">
+                    </div>
+                    <div class="lg_remember clearfix">
+                        <label>
+                        <input type="checkbox" value="1" name="remember" class="check" checked="checked">
+                        <span>{:L('rememberme')}</span>
+                        </label>
+                    </div>
+                    <div class="lg_login">
+                        <input type="submit" value="{:L('login')}" class="sub">
+                        <a href="{:U('findpwd/index')}">{:L('forget_password')}</a>
+                    </div>
+                </form>
+                <div class="ot_login">
+                    <span>{:L('other_login_model')}：</span>
+                    <div class="ot_btn">
+                        <volist name="oauth_list" id="val">
+                        <a href="{:U('oauth/index', array('mod'=>$val['code']))}" class="mr5"><img src="__STATIC__/images/oauth/{$val.code}/login.png"></a>
+                        </volist>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lg_right">
+            <h2>{:L('register')}</h2>
+            <span style="margin-left:40px;">{:L('have_not_username')}</span> <a style="margin-left:40px;" class="reg" href="{:U('user/register')}">{:L('relaxed_register')}</a> 
+        </div>
+    </div>
+</div>
+<include file="public:footer" />
+<script>
+$(function(){
+    $.pinphp.user.login_validate($('#J_login_form')); //登陆验证
+});
+</script>
+</div>
+</body>
+</html>

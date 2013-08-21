@@ -1,0 +1,137 @@
+<include file="public:header" />
+<!--cuzy筛选采集-->
+<div class="subnav">
+    <h1 class="title_2 line_x">cuzy商品采集<em class="red">({:L('collect_need_autouser')})</em></h1>
+</div>
+<div class="pad_lr_10" >
+    <form id="J_alimama_form" name="searchform" action="__SELF__" method="get" >
+    <table width="100%" cellspacing="0" class="table_form">
+        <tbody>
+            <tr>
+                <th width="150">{:L('tbk_item_cate')}：</th>
+                <td>
+                    <select class="J_tbcats mr10">
+                        <option value="0">--{:L('all')}--</option>
+                        <volist name="item_cate" id="cate">
+                        <option value="{$cate.cid}">{$cate.name}</option>
+                        </volist>
+                    </select>
+                    <input type="hidden" id="J_cid" name="cid" val="">
+                    <span class="gray ml10">{:L('tbk_item_cate_desc')}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>{:L('keyword')}：</th>
+                <td>
+                    <input name="keyword" type="text" class="input-text" size="40" />
+                    <span class="gray ml10">{:L('tbk_keyword_desc')}</span>
+                </td>
+            </tr>
+           <tr>
+                <th>{:L('sort_order')}：</th>
+                <td>
+                    <select name="sort">
+                        <option value="">   </option>
+                        <option value="promotion_asc">折扣价由低到高</option>
+                        <option value="promotion_desc">折扣价由高到低</option>
+                        <option value="seller_credit_score_desc">卖家信用由高到低</option>
+                        <option value="commission_rate_desc">佣金比例由高到低</option>
+                        <option value="commission_num_desc">30天推广交易量由高到低</option>
+                        <option value="commission_volume_desc">30天支出佣金量由高到低</option>
+                    </select>
+                </td>
+            </tr>
+           <tr>
+               <th>折扣价：</th>
+               <td>
+                   <input type="text" name="start_price" size="8" class="input-text" /> - 
+                   <input type="text" name="end_price" size="8" class="input-text" />  {:L('price_unit')} 
+
+               </td>
+           </tr>
+           <tr>
+               <th>{:L('tbk_item_commission_rate')}：</th>
+               <td>
+                   <input type="text" name="start_commissionRate" size="5" class="input-text" /> % - 
+                   <input type="text" name="end_commissionRate" size="5" class="input-text" /> %  
+				   <span class="gray ml10">佣金比例填写范围  0-100 </span>
+               </td>
+           </tr>
+           <!-- <tr>
+               <th>{:L('tbk_item_commission_num')}：</th>
+               <td>
+                   <input type="text" name="start_commissionNum" size="8" class="input-text" /> - 
+                   <input type="text" name="end_commissionNum" size="8" class="input-text" /> 
+   
+               </td>
+           </tr> -->
+           <tr>
+               <th>30天支出佣金：</th>
+               <td>
+                   <input type="text" name="start_commissionVolume" size="8" class="input-text" /> - 
+                   <input type="text" name="end_commissionVolume" size="8" class="input-text" />
+                  
+               </td>
+           </tr>
+           <tr>
+               <th>{:L('tbk_seller_credit')}：</th>
+               <td>
+					<input type="text" name="start_credit" size="8" class="input-text" /> - 
+					<input type="text" name="end_credit" size="8" class="input-text" />
+					<span class="gray ml10">设置卖家信用范围（1-20）。其中 1-5 心  6-10 钻  11-15 冠  16-20 皇冠</span>
+               </td>
+           </tr>
+           <tr>
+               <th>{:L('tbk_more_where')}：</th>
+               <td>
+                   <label class="mr10"><input type="radio" checked="checked" name="itemType" value="0"> 全部</label>
+                   <label class="mr10"><input type="radio" name="itemType" value="2"> {:L('only_tmall')}</label>
+                   <label class="mr10"><input type="radio" name="itemType" value="1"> 仅集市</label>
+               </td>
+           </tr>
+          <!--  <tr>
+               <th>{:L('item_like_init')}：</th>
+               <td>
+                   <select name="like_init">
+                       <option value="0">{:L('item_like_default')}</option>
+                       <option value="volume">{:L('tbk_item_volume')}</option>
+                   </select>
+               </td>
+           </tr> -->
+            <tr>
+                <th></th>
+                <td>
+                    <input type="hidden" name="g" value="admin" />
+                    <input type="hidden" name="m" value="collect_cuzy" />
+                    <input type="hidden" name="a" value="search" />
+                    <input type="submit" name="search" class="btn btn_submit mr10" value="{:L('search_filter')}" />
+                    <input type="button" name="import" class="J_showdialog btn" value="{:L('import_db')}" data-uri="{:U('collect_cuzy/batch_publish')}" data-id="batch_publish" data-title="{:L('import_db')}" data-width="450" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+<include file="public:footer" />
+<script>
+$(function(){
+    var uri = "{:U('collect_cuzy/ajax_get_tbcats')}";
+    $('.J_tbcats').die('change').live('change', function(){
+        var _this = $(this),
+            _cid = _this.val();
+        _this.nextAll('.J_tbcats').remove();
+        $.getJSON(uri, {cid:_cid}, function(result){
+            if(result.status == '1'){
+                var _childs = $('<select class="J_tbcats mr10"><option value="0">--'+lang.all+'--</option></select>')
+                for(var i=0; i<result.data.length; i++){
+                    $('<option value="'+result.data[i].cid+'">'+result.data[i].name+'</option>').appendTo(_childs);
+                }
+                _childs.insertAfter(_this);
+            }
+        });
+        $('#J_cid').val(_cid);
+    });
+});
+</script>
+</body>
+</html>

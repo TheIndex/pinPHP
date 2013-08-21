@@ -1,0 +1,6 @@
+<ul class="space_tab clearfix">
+    <li <if condition="$tab_current eq 'me'">class="current"</if>><a href="{:U('space/me')}">{:L('all')}</a></li>
+    <li <if condition="$tab_current eq 'talk'">class="current"</if>><a href="{:U('space/talk')}">{:L('i_published')}</a></li>
+    <li <if condition="$tab_current eq 'atme'">class="current"</if>><a href="{:U('space/atme')}">{:L('at_me')}</a></li>
+    <li <if condition="$tab_current eq 'cmtme'">class="current"</if>><a href="{:U('space/cmtme')}">{:L('comment_me')}</a></li>
+</ul>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/space.css" />
+</head>
+<body>
+
+<include file="public:header" />
+
+<div class="main_wrap">
+    <include file="top" />
+
+    <div class="clearfix">
+        <if condition="$visitor['id'] eq $user['id']">
+        <include file="topic_top" />
+        <div class="talk_tab ml20 mt10">
+            <a class="current" href="{:U('space/talk')}">{:L('all')}</a>
+            <i>|</i>
+            <a href="{:U('space/talk', array('type'=>1))}">{:L('original')}</a>
+        </div>
+        </if>
+        <include file="topic_list" />
+    </div>
+</div>
+
+<include file="public:footer" />
+<script src="__STATIC__/js/topic.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/exchange.css" />
+</head>
+<body>
+<include file="public:header" />
+
+<div class="main_wrap">
+    <div class="cate_sort pt10 clearfix">
+        <h3 class="fl">{$cname|default=L('all')}</h3>
+        <span class="fl">
+            <em class="fl">{:L('sort_order')}：</em>
+            <ul class="fl">
+                <li><a href="{:U('exchange/index', array('sort'=>'hot'))}" <if condition="$sort eq 'hot'">class="current"</if>>{:L('sort_hot')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('exchange/index', array('sort'=>'new'))}" <if condition="$sort eq 'new'">class="current"</if>>{:L('sort_new')}</a></li>
+            </ul>
+        </span>
+        <a href="{:U('exchange/rule')}" class="green tdu fr mt10" target="_blank">{:L('how_to_earn_score')}</a>
+    </div>
+    <div id="J_waterfall" class="wall_container clearfix">
+        <div class="J_item wall_tag">
+            <h3>{:L('all_cate')}：</h3>
+            <div class="tags clearfix">
+                <a href="{:U('exchange/index')}" <if condition="$cid eq ''">class="current"</if>>{:L('cate')}</a>
+                <pin:scoreitem type="cate" return="cate_list">
+                <volist name="cate_list" id="cate">
+                <a href="{:U('exchange/index',array('cid'=>$cate['id']))}" title="{$cate.name}" <if condition="$cid eq $cate['id']">class="current"</if>>{$cate.name}</a>
+                </volist>
+                </pin:scoreitem>
+            </div>
+        </div>
+        <volist name="item_list" id="item">
+        <div class="J_item wall_item score_item">
+            <ul class="pic">
+                <li>
+                    <a href="{:U('exchange/detail', array('id'=>$item['id']))}" title="{$item.title}" target="_blank"><img class="J_img" src="{:attach($item['img'], 'score_item')}" alt="{$item.title}" /></a>
+                </li>
+            </ul>
+            <p class="title"><a href="{:U('exchange/detail', array('id'=>$item['id']))}" class="clr6" target="_blank">{$item.title}</a></p>
+            <div class="ec clearfix">
+                <p class="fl"><span class="orange ft14 bold mr5">{$item.score}</span><img src="__STATIC__/images/score.png" /></p>
+                <a href="{:U('exchange/detail', array('id'=>$item['id']))}" class="btn orange_btn fr" target="_blank">{:L('ec_btn_short')}</a>
+            </div>
+        </div>
+        </volist>
+    </div>
+    <div class="page_bar">{$page_bar}</div>
+</div>
+<include file="public:footer" />
+<script>
+$(function(){
+    var p = '<notempty name="p">{$p}</notempty>';
+    $.pinphp.wall.init({
+        ajax_data: {p: p}
+    });
+});
+</script>
+</body>
+</html>

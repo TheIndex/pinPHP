@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/space.css" />
+</head>
+<body>
+<include file="public:header" />
+<div class="main_wrap">
+    <include file="top" />
+    <div class="clearfix">
+        <div class="space_cover_main fl">
+            <div class="cover_album mb20">
+                <h2 class="clearfix">
+                    <i><if condition="$user['id'] eq $visitor['id']">{:L('me')}<else/>{$user.username}</if>{:L('ofalbum')}</i> 
+                    <a href="{:U('space/album', array('uid'=>$user['id']))}" title="{:L('show_all_album')}" class="album_all">{:L('show_all_album')}</a>
+                    <if condition="$user['id'] eq $visitor['id']">
+                    <a href="javascript:;" class="J_createalbum_btn">{:L('create_album')}</a>
+                    </if>
+                </h2>
+                <!--专辑-->
+                <ul class="album_list clearfix">
+                    <volist name="album_list" id="album">
+                    <li class="J_album_item album_item" data-aid="{$album.id}">
+                        <ul>
+                            <for start="0" end=":C('pin_album_cover_items')">
+                                <li class="<if condition="$i eq 0">big<elseif condition="$i eq 1"/>left small<else/>small</if>">
+                                    <present name="album['cover'][$i]">
+                                    <if condition="$i eq 0">
+                                    <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($album['cover'][$i]['img'], '_m'), 'item'))}" />
+                                    <else/>
+                                    <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($album['cover'][$i]['img'], '_s'), 'item'))}" />
+                                    </if>
+                                    </present>
+                                </li>
+                            </for>
+                        </ul>
+                        <h4><a target="_blank" href="{:U('album/detail', array('id'=>$album['id']))}" title="{$album.title}">{$album.title}</a></h4>
+                        <p class="num"><a target="_blank" href="{:U('album/detail', array('id'=>$album['id']))}">{$album.items}{:L('piece_items')}</a></p>
+                        <a target="_blank" href="{:U('album/detail', array('id'=>$album['id']))}" class="album_link"></a>
+                        <if condition="$user['id'] eq $visitor['id']">
+                        <div class="J_control edit">
+                            <a href="javascript:;" class="J_shareitem_btn add" data-aid="{$album.id}"> + {:L('album_add_item')}</a>
+                            <a href="javascript:;" class="J_edit">{:L('edit')}</a>
+                            <a href="javascript:;" class="J_del">{:L('delete')}</a>
+                        </div>
+                        </if>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+            <!--分享-->
+            <h2 class="user_show_title mb20"><if condition="$user['id'] eq $visitor['id']">{:L('me')}<else/>{$user.username}</if>{:L('ofitem')}</h2>
+            <div class="pos_r">
+                <div id="J_waterfall" class="wall_container clearfix" data-uri="__ROOT__/?m=space&a=item&uid={$user.id}&sort=new">
+                    <include file="public:waterfall" />
+                </div>
+                <present name="show_load">
+                <div id="J_wall_loading" class="wall_loading tc gray"><span>{:L('loading')}</span></div>
+                </present>
+
+                <present name="page_bar">
+                <div id="J_wall_page" class="wall_page">
+                    <div class="cover_more pt20"><a href="{:U('space/item', array('uid'=>$user['id']))}">{:L('show_more')}...</a></div>
+                </div>
+                </present>
+            </div>
+        </div>
+        
+        <!--右侧-->
+        <div class="space_cover_side fr">
+            <div class="side_piece mb20">
+                <div class="side_userinfo">
+                    <div class="info">
+                        <div class="avatar">
+                            <a href="{:U('space/index', array('uid'=>$user['id']))}" title="{$user.username}"><img src="{:avatar($user['id'], 200)}" alt="{$user.username}"></a>
+                        </div>
+                        <p class="nickname">
+                            <a href="{:U('space/index', array('uid'=>$user['id']))}" title="{$user.username}">{$user.username}</a>
+                        </p>
+                        <div class="record_wrap">
+                            <ul class="record clearfix">
+                                <li><a href="{:U('space/follow', array('uid'=>$user['id']))}"><span class="ft14">{$user.follows}</span><span>{:L('follow')}</span></a></li>
+                                <li><a href="{:U('space/fans', array('uid'=>$user['id']))}"><span class="ft14">{$user.fans}</span><span>{:L('fans')}</span></a></li>
+                                <li class="bd_none"><a title="{:L('belike')}"><span class="ft14">{$user.likes}</span><span>{:L('belike')}</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="detail clearfix">
+                            <a href="{:U('space/info', array('uid'=>$user['id']))}">{:L('show_more')}</a>
+                            <if condition="$user['id'] eq $visitor['id']">
+                            <a href="{:U('user/index')}">{:L('setting')}</a>
+                            </if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+<include file="public:footer" />
+</body>
+</html>

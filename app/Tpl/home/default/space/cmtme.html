@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/space.css" />
+</head>
+<body>
+
+<include file="public:header" />
+
+<div class="main_wrap">
+    <include file="top" />
+
+    <div class="clearfix">
+        <include file="topic_top" />
+        <ul class="cmt_me">
+            <volist name="cmt_list" id="val">
+            <li class="J_cmt_list cmt_row clearfix" data-tid="{$val.tid}" data-cid="{$val.id}">
+                <div class="avt">
+                    <a target="_blank" href="{:U('space/index', array('uid'=>$val['uid']))}"><img class="J_card r5" src="{:avatar($visitor['id'], '48')}" data-uid="{$val.uid}"></a>
+                </div>
+                <div class="cm_info">
+                    <p class="msg">
+                        <span><a href="" class="n u_g">{$val.uname}</a>：{$val.content}</span>
+                        <br/>
+                        <a href="{:U('topic/detail', array('id'=>$val['tid']))}" class="r_a">{:L('reply_mytopic')}</a>：{$val.topic}
+                    </p>
+                    <div class="tl">
+                        <a href="{:U('topic/detail', array('id'=>$val['tid']))}" class="fl">{$val.add_time|fdate}</a>
+                        <a href="javascript:;" class="J_cmtme_reply fr">{:L('reply')}</a>
+                        <a href="javascript:;" class="J_cmt_del fr">{:L('delete')}</a>
+                    </div>
+                </div>
+
+            </li>
+            </volist>
+        </ul>
+        <div class="page_bar">{$page_bar}</div>
+    </div>
+</div>
+
+<include file="public:footer" />
+<script src="__STATIC__/js/topic.js"></script>
+</body>
+</html>

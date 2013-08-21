@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/exchange.css" />
+</head>
+<body>
+<include file="public:header" />
+
+<div class="main_wrap pt20 clearfix">
+    <div class="wall_tag fl">
+        <h3>{:L('all_cate')}：</h3>
+        <div class="tags clearfix">
+            <a href="{:U('exchange/index')}" <if condition="$cid eq ''">class="current"</if>>{:L('all')}</a>
+            <pin:scoreitem type="cate" return="cate_list">
+            <volist name="cate_list" id="cate">
+            <a href="{:U('exchange/index',array('cid'=>$cate['id']))}" title="{$cate.name}" <if condition="$cid eq $cate['id']">class="current"</if>>{$cate.name}</a>
+            </volist>
+            </pin:scoreitem>
+        </div>
+    </div>
+    <div class="score_item_detail fr">
+        <div class="si_info mb20 clearfix">
+            <div class="si_img fl">
+                <img src="{:attach(str_replace('_s.'.array_pop(explode('.', $item['img'])), '_b.'.array_pop(explode('.', $item['img'])), $item['img']), 'score_item')}" alt="{$item.title}" />
+            </div>
+            <div class="si_attr fr">
+                <h3 class="ft14 mb5">{$item.title}</h3>
+                <p class="attr_row mb5">{:L('surplus_stock')}：<span class="ft14">{$item.stock}</span></p>
+                <p class="attr_row mb5">{:L('buy_num')}：<span class="ft14">{$item.buy_num}</span></p>
+                <p class="attr_row mb5">{:L('user_num')}：<span class="ft14">{$item.user_num}</span></p>
+                <p class="attr_row mb5">{:L('need_score')}：<span class="orange ft18">{$item.score}</span></p>
+                <p class="attr_row mb15">{:L('ec_number')}：<input type="text" id="J_num_{$item.id}" class="input_text_number" value="1" size="4"></p>
+                <div class="J_ec_btn btn orange_btn fl ft14" data-id="{$item.id}" data-num="#J_num_{$item.id}">{:L('ec_btn')}</div>
+            </div>
+        </div>
+        <div class="si_desc clearfix">
+            <ul class="J_desc_tab si_desc_tab pl10 clearfix">
+                <li class="current">{:L('score_item_desc_title')}</li>
+                <li>{:L('ec_desc')}</li>
+            </ul>
+            <div class="J_desc_panes si_desc_panes">
+                <div>{$item.desc}</div>
+                <div>{$exchange_desc}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer" />
+<script src="__STATIC__/js/exchange.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+    <div class="card_info">
+        <img src="{:avatar($user['id'], 100)}" class="avatar">
+        <div class="info">
+            <p><a class="uname" href="{:U('space/index', array('uid'=>$user['id']))}">{$user.username}</a></p>
+            <p>{$user.province} {$user.city}</p>
+            <p>
+                <a href="{:U('space/fans', array('uid'=>$user['id']))}" target="_blank"><span>{$user.fans}</span></a>{:L('fans')}
+                <a href="{:U('space/item', array('uid'=>$user['id']))}" class="ml10" target="_blank"><span>{$user.shares}</span></a>{:L('share')}
+                <a href="{:U('space/like', array('uid'=>$user['id']))}" class="ml10" target="_blank"><span>{$user.likes}</span></a>{:L('like')}
+            </p>
+        </div>
+        <div class="intro">
+            <span class="clr3">{$user.intro|default=C('pin_user_intro_default')}</span>
+        </div>
+    </div>
+    <div class="card_toolbar">
+        <if condition="$visitor['id'] eq $user['id']">
+        {:L('own_card')}
+        <else/>
+        <div class="J_follow_bar fl mr10" data-uid="{$user.id}">
+            <if condition="$user['ship'] eq 0">
+            <a href="javascript:;" class="J_fo_u fo_u_btn">{:L('follow')}</a>
+            <elseif condition="$user['ship'] eq 1"/>
+            <span class="fo_u_ok">{:L('followed')}</span><a href="javascript:;" class="J_unfo_u green">{:L('cancel')}</a>
+            <elseif condition="$user['ship'] eq 2"/>
+            <span class="fo_u_all">{:L('follow_mutually')}</span><a href="javascript:;" class="J_unfo_u green">{:L('cancel')}</a>
+            </if>
+        </div>
+        <a href="{:U('message/write', array('to_id'=>$user['id']))}" class="green" target="_blank">{:L('send_message')}</a>
+        </if>
+    </div>

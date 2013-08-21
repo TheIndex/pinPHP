@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/index.css" />
+</head>
+<body>
+<div class="w960">{:R('advert/index', array(9), 'Widget')}</div>
+<include file="public:header" />
+<div class="main_wrap">
+    <div class="mt10">{:R('advert/index', array(10), 'Widget')}</div>
+    <div class="focusbox clearfix">
+        <div class="focusbox_l fl">{:R('advert/index', array(1), 'Widget')}</div>
+        <div class="user_act fr">
+            <notempty name="visitor">
+            <div class="user_info">
+                <a class="avatar" href="{:U('space/index')}" target="_blank"><img class="r3" src="{:avatar($visitor['id'], 48)}" alt="{$visitor.username}"></a>
+                <div class="user_name">
+                    <a href="{:U('space/index')}" target="_blank">{$visitor.username}</a>
+                </div>
+                <p class="feed_link">
+                    {:L('wellcome_back')}{:C('pin_site_name')}，{:L('go')}<a href="{:U('space/me')}" target="_blank">{:L('see_friends_feed')}</a>吧。
+                </p>
+            </div>
+            <else/>    
+            <div class="user_login"> 
+                <a href="{:U('user/register')}" class="register_btn">{:L('register_now')}</a>
+                <volist name="oauth_list" id="val">
+                <a href="{:U('oauth/index', array('mod'=>$val['code']))}" class="oauth_btn"><img src="__STATIC__/images/oauth/{$val.code}/icon.png"></a>
+                </volist>
+            </div>
+            </notempty>
+            {:R('advert/index', array(2), 'Widget')}
+            <div class="applink" > 
+                <div class="fl" >{:R('advert/index', array(4), 'Widget')}</div> 
+                <div class="fr" >{:R('advert/index', array(5), 'Widget')}</div> 
+            </div>      
+        </div>
+        
+    </div>
+    <!--专辑-->
+    <div class="index_piece">
+    
+        <div class="piece_head clearfix">
+            <h3 class="album_title"><a href="{:U('album/index')}">{:L('wonderful_album')}</a></h3>
+            <ul class="fl">
+                <li><a href="{:U('album/index', array('sort'=>'hot'))}">{:L('sort_hot')}</a></li>
+                <li><a href="{:U('album/index', array('sort'=>'new'))}">{:L('sort_new')}</a></li>
+                <li>|</li>
+                <pin:album type="cate" num="10">
+                <volist name="data" id="val">
+                <li><a href="{:U('album/index', array('cid'=>$val['id']))}" target="_blank">{$val.name}</a></li>
+                </volist>
+                </pin:album>
+            </ul>
+            <div class="view_all fr"><a href="{:U('album/index')}">{:L('show_all')}...</a></div>
+        </div>
+        
+        <div class="piece_body">
+            <ul class="index_album_list clearfix">
+                <pin:album type="lists" where="is_index=1" num="3" cache="3600">
+                <volist name="data" id="album">
+                <li class="J_album_item index_album">
+                    <ul>
+                        <for start="0" end=":C('pin_album_cover_items')">
+                        <li class="<if condition="$i eq 0">big<else/>small</if>">
+                            <present name="album['cover'][$i]">
+                            <if condition="$i eq 0">
+                            <img src="{:attach(get_thumb($album['cover'][$i]['img'], '_m'), 'item')}" />
+                            <else/>
+                            <img src="{:attach(get_thumb($album['cover'][$i]['img'], '_s'), 'item')}" />
+                            </if>
+                            </present>
+                        </li>
+                        </for>
+                    </ul>
+                    <div class="album_author clearfix">
+                        <a href="{:U('space/index', array('uid'=>$album['uid']))}" target="_blank"><img src="{:avatar($album['uid'], '24')}" class="J_card fl" alt="{$album.uname}" data-uid="{$album.uid}" /></a>
+                        <a class="J_card author_name fl" href="{:U('space/index', array('uid'=>$album['uid']))}" target="_blank" data-uid="{$album.uid}">{$album.uname}</a>
+                        <p class="num">
+                            <a title="{$album.items}" href="{:U('album/detail', array('id'=>$album['id']))}" class="pic_num fr" target="_blank">{$album.items}</a>
+                            <a title="{$album.likes}" href="{:U('album/detail', array('id'=>$album['id']))}" class="fav_num fr" target="_blank">{$album.likes}</a>
+                        </p>
+                    </div>
+                    <h4><a title="{$album.title}" href="{:U('album/detail', array('id'=>$album['id']))}" target="_blank">{$album.title}</a></h4>
+                    <p class="album_desc">{$album.intro}</p>
+                    <b class="J_mask mask"></b>
+                    <a class="album_link" href="{:U('album/detail', array('id'=>$album['id']))}" target="_blank"></a>
+                </li>
+                </volist>
+                </pin:album>
+            </ul>
+        </div>
+    </div>
+    <!--首页分类-->
+    <volist name="index_cate_list" id="cate">
+    <div class="index_piece">
+        <div class="piece_head clearfix">
+            <h3 class="cate_title"><a href="{:U('book/cate', array('cid'=>$cate['id']))}" title="{$cate.name}">{$cate.name}</a></h3>
+            <ul class="fl">
+                <li><a href="{:U('book/cate', array('cid'=>$cate['id'], 'sort'=>'hot'))}">{:L('sort_hot')}</a></li>
+                <li><a href="{:U('book/cate', array('cid'=>$cate['id'], 'sort'=>'new'))}">{:L('sort_new')}</a></li>
+                <li>|</li>
+                <volist name="cate['sub']" id="subcate">
+                <li><a href="{:U('book/cate', array('cid'=>$subcate['id']))}">{$subcate.name}</a></li>
+                </volist>
+            </ul>
+            <div class="view_all fr"><a href="{:U('book/cate', array('cid'=>$cate['id']))}">{:L('show_all')}...</a></div>
+        </div>
+        <div class="piece_body">
+            <div class="index_cate">
+                <ul class="clearfix">
+                    <volist name="cate['index_sub']" id="index_subcate">
+                    <li><a href="{:U('book/cate', array('cid'=>$index_subcate['id']))}" title="{$index_subcate.name}"><img src="{:attach($index_subcate['img'], 'item_cate')}" alt="{$index_subcate.name}"><span>{$index_subcate.name}</span></a></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </volist>
+    <if condition="C('pin_index_wall')">
+    <!--发现-->
+    <div class="wel_find_more">
+        <h2><a href="{:U('book/index')}">{:L('find')}</a></h2>
+        <volist name="hot_tags" id="tag">
+        <a href="{:U('book/index',array('tag'=>$tag))}" target="_blank">{$tag}</a>
+        </volist>
+        <a href="{:U('book/index')}">{:L('more')}...</a>
+    </div>
+    <div class="wall_wrap clearfix">
+        <div id="J_waterfall" class="wall_container clearfix" data-uri="__ROOT__/?m=book&a=index_ajax&sort=hot">
+            <include file="public:waterfall" />
+        </div>
+        <present name="show_load">
+        <div id="J_wall_loading" class="wall_loading tc gray"><span>{:L('loading')}</span></div>
+        </present>
+        
+        <present name="page_bar">
+        <div id="J_wall_page" class="wall_page">
+            <div class="page_bar">{$page_bar}</div>
+        </div>
+        </present>
+    </div>
+    </if>
+</div>
+
+<include file="public:footer" />
+<script>
+$(function(){
+    $('#J_focus').tabs('#J_focus_img > li', {rotate: true}).slideshow({autoplay:true});
+});
+</script>
+</body>
+</html>

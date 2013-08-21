@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/space.css" />
+</head>
+<body>
+
+<include file="public:header" />
+
+<div class="main_wrap">
+    <include file="top" />
+
+    <div class="followfans_main">
+        <div class="followfans_info clearfix">
+            <h1 class="fl"><if condition="$visitor['id'] eq $user['id']">{:L('me')}<else/>Ta </if>{:L('space_fans_title')}</h1>
+        </div>
+        <ul class="space_tab clearfix">
+            <li <if condition="$tab_current eq 'follow'">class="current"</if>><a href="{:U('space/follow', array('uid'=>$user['id']))}"><if condition="$visitor['id'] eq $user['id']">{:L('me')}<else/>Ta </if>{:L('space_follow_title')}</a></li>
+            <li <if condition="$tab_current eq 'fans'">class="current"</if>><a href="{:U('space/fans', array('uid'=>$user['id']))}"><if condition="$visitor['id'] eq $user['id']">{:L('me')}<else/>Ta </if>{:L('space_fans_title')}</a></li>
+        </ul>
+        <ul class="people_list clearfix">
+            <volist name="user_list" id="val">
+            <li class="J_pl clearfix" data-uid="{$val.id}">
+                <a href="{:U('space/index', array('uid'=>$val['id']))}"><img class="J_card fl r5" src="{:avatar($val['id'], 48)}" data-uid="{$val.id}" /></a>
+                <div class="people_info"> <a class="n gc" href="">{$val.username}</a><br>
+                    <span>{:L('fans')}{$val.fans}人</span>
+                </div>
+
+                <if condition="$visitor['id'] eq $user['id']">
+                <div class="people_toolbar">
+                    <div class="J_follow_bar" data-uid="{$val.id}">
+                        <if condition="$val['mutually'] eq 1">
+                        <span class="fo_u_all">{:L('follow_mutually')} | </span><a href="javascript:;" class="J_unfo_u green">{:L('cancel')}</a>
+                        <else/>
+                        <a href="javascript:;" class="J_fo_u fo_u_btn fr mb3">{:L('follow')}</a>
+                        </if>
+                    </div>
+                    <div class="J_fans_op fans_op hide">
+                        <a href="javascript:;" class="J_delfans fr" data-uid="{$val.id}">{:L('delete_fans')}</a><br>
+                    </div>
+                </div>
+                </if>
+
+            </li>
+            </volist>
+        </ul>
+    </div>
+</div>
+
+<include file="public:footer" />
+<script src="__STATIC__/js/space.js"></script>
+</body>
+</html>

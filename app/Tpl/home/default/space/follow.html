@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/space.css" />
+</head>
+<body>
+
+<include file="public:header" />
+
+<div class="main_wrap">
+    <include file="top" />
+
+    <div class="followfans_main">
+        <div class="followfans_info clearfix">
+            <h1 class="fl"><if condition="$visitor['id'] eq $user['id']">{:L('me')}<else/>Ta </if>{:L('space_follow_title')}</h1>
+        </div>
+        <ul class="space_tab clearfix">
+            <li <if condition="$tab_current eq 'follow'">class="current"</if>><a href="{:U('space/follow', array('uid'=>$user['id']))}"><if condition="$visitor['id'] eq $user['id']">{:L('me')}<else/>Ta </if>{:L('space_follow_title')}</a></li>
+            <li <if condition="$tab_current eq 'fans'">class="current"</if>><a href="{:U('space/fans', array('uid'=>$user['id']))}"><if condition="$visitor['id'] eq $user['id']">{:L('me')}<else/>Ta </if>{:L('space_fans_title')}</a></li>
+        </ul>
+        <ul class="people_list clearfix">
+            <volist name="user_list" id="val">
+            <li class="J_pl clearfix" data-uid="{$val.id}">
+                <a href="{:U('space/index', array('uid'=>$val['id']))}"><img class="J_card fl r5" src="{:avatar($val['id'], 48)}" data-uid="{$val.id}" /></a>
+                <div class="people_info">
+                    <a href="{:U('space/index', array('uid'=>$val['id']))}" class="n gc">{$val.username}</a><br>
+                    <span>{:L('fans')}{$val.fans}人</span>
+                    <p>{$val.add_time|fdate}</p>
+                </div>
+                <div class="J_pl_tool people_toolbar">
+                <if condition="$visitor['id'] eq $user['id']">
+                    <!--自己访问-->
+                    <if condition="$val['mutually'] eq 0">
+                    <span class="fo_u_ok">{:L('followed')} | </span>
+                    <else/>
+                    <span class="fo_u_all">{:L('follow_mutually')} | </span>
+                    </if>
+                    <a href="javascript:;" class="J_unfo_u green">{:L('cancel')}</a>
+                <else/>
+                    <!--查看别人-->
+                    <a href="javascript:;" class="J_fo_u fo_u_btn">{:L('follow')}</a>
+                </if>
+                </div>
+            </li>
+            </volist>
+        </ul>
+        <div class="page_bar">{$page_bar}</div>
+    </div>
+</div>
+
+<include file="public:footer" />
+<script src="__STATIC__/js/space.js"></script>
+</body>
+</html>

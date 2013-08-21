@@ -1,0 +1,33 @@
+<div class="dialog_address clearfix">
+	<form id="J_daddress_form" action="{:U('exchange/address')}" method="post">
+    <ul class="address_list">
+        <volist name="address_list" id="val">
+        <li><label><input type="radio" class="fl" name="address_id" value="{$val.id}">{$val.consignee}({$val.mobile}) - {$val.address} {$val.zip}</label></li>
+        </volist>
+        <li><label><input type="radio" checked class="fl" name="address_id" value="0">{:L('new_address')}</label></li>
+    </ul>
+    <table width="100%">
+        <tr>
+            <th width="70">{:L('consignee')}：</th>
+            <td><input type="text" id="J_consignee" class="input_text" name="consignee"></td>
+        </tr>
+        <tr>
+            <th>{:L('address')}：</th>
+            <td><input type="text" id="J_address" class="input_text" name="address" size="50"></td>
+        </tr>
+        <tr>
+            <th>{:L('zip')}：</th>
+            <td><input type="text" class="input_text" name="zip" size="8"></td>
+        </tr>
+        <tr>
+            <th>{:L('mobile')}：</th>
+            <td><input type="text" id="J_mobile" class="input_text" name="mobile"></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" class="btn" value="{:L('ok')}"></td>
+        </tr>
+    </table>
+    <input type="hidden" name="order_id" value="{$order_id}">
+    </form>
+</div>

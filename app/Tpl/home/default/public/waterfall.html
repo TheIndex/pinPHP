@@ -1,0 +1,65 @@
+<volist name="item_list" id="item">
+    <div class="J_item wall_item">
+
+        <present name="like_manage">
+        <a href="javascript:;" class="J_unlike del_item" title="{:L('delete')}" data-id="{$item.id}"></a>
+        </present>
+
+        <present name="album_manage">
+        <if condition="$album['uid'] eq $visitor['id']">
+        <a href="javascript:;" class="J_delitem del_item" title="{:L('delete')}" data-id="{$item.id}" data-aid="{$album.id}"></a>
+        </if>
+        <else/>
+        <if condition="$item['uid'] eq $visitor['id']">
+        <a href="javascript:;" class="J_delitem del_item" title="{:L('delete')}" data-id="{$item.id}"></a>
+        </if>
+        </present>
+
+        <!--图片-->
+        <ul class="pic">
+            <li>
+                <a href="{:U('item/index', array('id'=>$item['id']))}" title="{$item.title}" target="_blank"><img alt="{$item.title}" class="J_img J_decode_img" data-uri="{:base64_encode(attach(get_thumb($item['img'], '_m'), 'item'))}"></a>
+                <span class="p">¥{$item.price}</span>
+                <a href="javascript:;" class="J_joinalbum addalbum_btn" data-id="{$item.id}"></a>
+            </li>
+        </ul>
+        <!--操作-->
+        <div class="favorite"> 
+            <a href="javascript:;" class="J_likeitem like" data-id="{$item.id}" <present name="album">data-aid="{$album.id}"</present>>{:L('like')}</a>
+            <div class="J_like_n like_n <if condition="$item['likes'] eq 0">hide</if>"><a href="{:U('item/index', array('id'=>$item['id']))}" target="_blank">{$item.likes}</a><i></i></div>
+            
+            <if condition="$item['comments'] gt 0">
+            <span class="creply_n">(<a href="{:U('item/index', array('id'=>$item['id']))}" target="_blank">{$item.comments}</a>)</span>
+            </if>
+            <a class="creply" href="{:U('item/index', array('id'=>$item['id']))}" target="_blank">{:L('comment')}</a> 
+        </div>
+        <!--作者-->
+        <notempty name="item['uname']">
+        <div class="author clearfix">
+            <a href="{:U('space/index', array('uid'=>$item['uid']))}" target="_blank">
+                <img class="J_card avt fl r3" src="{:avatar($item['uid'], '32')}" data-uid="{$item.uid}" />
+            </a>
+            <div>
+                <a href="{:U('space/index', array('uid'=>$item['uid']))}" class="J_card clr6 bold" target="_blank" data-uid="{$item.uid}">{$item.uname}</a><br>
+            </div>
+        </div>
+        </notempty>
+        <!--说明-->
+        <p class="intro clr6">{$item.intro}</p>
+        <!--评论-->
+        <notempty name="item['comment_list']">
+        <ul class="rep_list">
+            <for start="0" end=":C('pin_item_cover_comments')">
+            <notempty name="item['comment_list'][$i]">
+            <li class="rep_f">
+                <a href="{:U('space/index', array('uid'=>$item['comment_list'][$i]['uid']))}" target="_blank">
+                    <img src="{:avatar($item['comment_list'][$i]['uid'], 24)}" class="J_card avt fl r3" alt="{$item['comment_list'][$i]['uname']}" data-uid="{$item['comment_list'][$i]['uid']}">
+                </a>
+                <p class="rep_content"><a href="{:U('space/index', array('uid'=>$item['comment_list'][$i]['uid']))}" class="J_card n" target="_blank" data-uid="{$item['comment_list'][$i]['uid']}">{$item['comment_list'][$i]['uname']}</a>  {$item['comment_list'][$i]['info']}</p>
+            </li>
+            </notempty>
+            </for>
+        </ul>
+        </notempty>
+    </div>
+</volist>

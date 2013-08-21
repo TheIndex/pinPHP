@@ -1,4 +1,25 @@
-pinPHP
-======
+# »ùÓÚcuzy WEBSDKµÄPinphp·¢²¼ÁË #
+- ÓÉÓÚ[ÌÔ±¦ÐÂ¹æ](http://club.alimama.com/read-htm-tid-4369390.html)µÄ³öÌ¨£¬Ê¹Ô­À´µÄpinphp¿ªÔ´²úÆ·ÔÚÊý¾Ý²É¼¯Ê±·¢Éú´íÎó
+- ËùÒÔ»ùÓÚPinPHPv3µÄÐÞ¸Ä£¬¼¯³ÉCuzy WEBSDKµ½Êý¾Ý²É¼¯²¿·Ö¡£ÏÂÔØpinphp+cuzyÍêÕû°²×°°ü£»ÀïÃæ¼¯³ÉÁËcuzy²É¼¯¿ÉÒÔÖ±½ÓÊ¹ÓÃ
 
-è¿™ä¸ªç‰ˆæœ¬çš„pinPHPæ˜¯ä½¿ç”¨äº†cuzySDKçš„è´­ç‰©å¯¼èˆªæ•°æ®çš„sdkï¼ŒcuzySDKæ˜¯ä¸€ä¸ªé€šç”¨çš„è´­ç‰©å¯¼èˆªæ•°æ®æŽ¨èå¹³å°
+# Cuzy²å¼þÊ¹ÓÃ°ïÖú #
+1. ³õ´ÎÊ¹ÓÃcuzyµÄwebSDK£¬Çëµ½cuzyÍøÕ¾´´½¨app£»[ÉêÇë°ïÖú](http://cuzy.com/index/doc_web_app)
+2. ÌîÐ´ÓÐ¹ØÐÅÏ¢´´½¨app.×¢ÒâÒªÌîÐ´ÕýÈ·µÄÊÚÈ¨ipµØÖ·£¬ÒÔ±£Ö¤³ÌÐòµÄÕý³£ÔËÐÐ£¬´´½¨Íê³ÉÄã½«µÃµ½cuzyµÄappkeyºÍapp Secret
+3. ÒÔ¹ÜÀíÔ±Éí·Ý½øÈëpinphpºóÌ¨¹ÜÀíÒ³¡£
+4. Ñ¡ÔñÒ³ÃæÉÏ·½¡®Ó¦ÓÃ¡¯À¸Ä¿¡£ÔÙÈ»ºóÑ¡Ôñ×ó²àµÄ¡®ÉÌÆ·½Ó¿Ú¡¯£¬µã»÷±à¼­cuzyµÄappkeyºÍapp Secret£¬
+5. ²É¼¯¹¦ÄÜ¡£Ñ¡Ôñ¡®ÉÌÆ·¡¯À¸Ä¿£¬Î»ÓÚ×ó²àµÄ¡®ÉÌÆ·²É¼¯¡¯×é£¬Ñ¡Ôñ¡®Cuzy²É¼¯¡¯
+6. ÊäÈëÏà¹ØÑ¡ÏîºÍÏà¹Ø¹ýÂËºÍÅÅÐòÌõ¼þ£¬½øÐÐËÑË÷¡£È»ºóÌí¼Óµ½ÉÌÆ·¿âÖÐ¡£
+
+# ÁªÏµ #
+Óöµ½ÎÊÌâÏÈ¿´[github](https://github.com/theindex/pinphp)£¬ÔÙ¸üÐÂµ½×îÐÂ°æ¿´¿´ÎÊÌâÓÐÎÞ½â¾ö£¬Èç¹û»¹ÓÐÎÊÌâÇë¼ÓQQÈº
+
+´úÂë»¹ÔÚ²»¶ÏÍêÉÆÖÐ£¬ÓÐÈÎºÎÒâ¼ûºÍ½¨Òé£º
+
+- ÉÌÎñQQ£º1263572458   QQÈº£º322622433
+- Òâ¼û·´À¡¼°¼¼ÊõÖ§³ÖÓÊÏä£ºsupport@theindex.com   aa@theindex.com
+- ÐÂÀËÎ¢²©£º[http://weibo.com/cuzysdk]
+
+
+# ÏÂÔØ #
+github: https://github.com/theindex/pinphp
+cuzy: http://cuzy.com/index/show_download_pinphp

@@ -1,0 +1,94 @@
+<include file="public:header" />
+<div class="pad_10">
+	<notempty name="message">
+	<ul id="message_list">
+    	<volist name="message" id="val">
+    	<li class="list_{$val.type}">{$val.content}</li>
+        </volist>
+    </ul>
+    </notempty>
+
+	<div class="clearfix">
+        <div class="col-2">
+            <h6>PinPHP动态</h6>
+            <div class="content">
+                <iframe src="http://www.pinphp.com/pin.php" style="width:100%;height:100px;" frameborder="0">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="col-2 mt10">
+            <h6>系统信息</h6>
+            <div class="content">
+                <table class="table_panel lh26" style="width: 100%;">
+                    <tr>
+                        <td width="20%">{:L('pinphp_version')}：</td>
+                        <td width="30%">{$system_info.pinphp_version}</td>
+                        <td width="20%">{:L('server_domain')}：</td>
+                        <td width="30%">{$system_info.server_domain}</td>
+                    </tr>
+                    <tr>
+                        <td>{:L('server_os')}：</td>
+                        <td>{$system_info.server_os}</td>
+                        <td>{:L('web_server')}：</td>
+                        <td>{$system_info.web_server}</td>
+                    </tr>
+                    <tr>
+                        <td>{:L('php_version')}：</td>
+                        <td>{$system_info.php_version}</td>
+                        <td>{:L('mysql_version')}：</td>
+                        <td>{$system_info.mysql_version}</td>
+                    </tr>
+                    <tr>
+                        <td>{:L('upload_max_filesize')}：</td>
+                        <td>{$system_info.upload_max_filesize}</td>
+                        <td>{:L('max_execution_time')}：</td>
+                        <td>{$system_info.max_execution_time}</td>
+                    </tr>
+                    <tr>
+                        <td>{:L('safe_mode')}：</td>
+                        <td>{$system_info.safe_mode}</td>
+                        <td>{:L('zlib')}：</td>
+                        <td>{$system_info.zlib}</td>
+                    </tr>
+                    <tr>
+                        <td>{:L('curl')}：</td>
+                        <td>{$system_info.curl}</td>
+                        <td>{:L('timezone')}：</td>
+                        <td>{$system_info.timezone}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>   
+                 
+        <div class="col-2 mt10">
+            <h6>开发团队</h6>
+            <div class="content">
+                <table class="table_panel lh26" style="width: 100%;">
+                    <tr>
+                        <td width="10%">版权所有：</td>
+                        <td>www.pinphp.com</td>
+                    </tr>
+                    <tr>
+                        <td>负责人：</td>
+                        <td>李谱(leaper)</td>
+                    </tr>
+                    <tr>
+                        <td>产品研发：</td>
+                        <td>李长勇(andery)、李苏亮(solaa)、胡怀行(湖水清)、王世豪(brivio)</td>
+                    </tr>
+                    <tr>
+                        <td>UED：</td>
+                        <td>陈勇(Mr)、李长勇(andery)</td>
+                    </tr>
+                    <tr>
+                        <td>市场运营：</td>
+                        <td>许华平(jonyxu)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>         
+    </div>
+</div>
+</body>
+</html>

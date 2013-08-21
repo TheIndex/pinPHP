@@ -1,0 +1,52 @@
+<div class="w960">{:R('advert/index', array(11), 'Widget')}</div>
+<div class="footer_wrap rt10">
+    <a href="__APP__" class="foot_logo"></a>
+    <div class="foot_links clearfix">
+        <dl class="foot_nav fl">
+            <dt>{:L('site_nav')}</dt>
+            <pin:nav type="lists" style="bottom">
+            <volist name="data" id="val">
+            <dd><a href="{$val.link}" <if condition="$val.target eq 1">target="_blank"</if>>{$val.name}</a></dd>
+            </volist>
+            </pin:nav>
+        </dl>
+        <dl class="aboutus fl">
+            <dt>{:L('aboutus')}</dt>
+            <pin:article type="cate" cateid="1">
+            <volist name="data" id="val">
+            <dd><a href="{:U('aboutus/index', array('id'=>$val['id']))}" target="_blank">{$val.name}</a></dd>
+            </volist>
+            </pin:article>
+        </dl>
+        <dl class="flinks fr">
+            <dt>{:L('flink')}</dt>
+            <pin:flink type="lists" num="5" cache="3600">
+            <volist name="data" id="val">
+            <dd><a href="{$val.url}" target="_blank">{$val.name}</a></dd>
+            </volist>
+            </pin:flink>
+            <dd><a href="{:U('aboutus/flink')}" class="more" target="_blank">{:L('more')}...</a></dd>
+        </dl>
+        {:R('advert/index', array(8), 'Widget')}
+    </div>
+    <p class="pt20">Powered by <a href="http://www.pinphp.com/" class="tdu clr6" target="_blank">PinPHP {$Think.PIN_VERSION} {$Think.PIN_RELEASE}</a> &copy;Copyright 2010-2012 <a href="__ROOT__/" class="tdu clr6" target="_blank">{:C('pin_site_name')}</a> (<a href="http://www.miibeian.gov.cn" class="tdu clr6" target="_blank">{:C('pin_site_icp')}</a>){:C('pin_statistics_code')}</p>
+</div>
+<div id="J_returntop" class="return_top"></div>
+
+<script>
+var PINER = {
+    root: "__ROOT__",
+    uid: "<?php echo $visitor['id'];?>", 
+    async_sendmail: "<?php echo $async_sendmail;?>",
+    config: {
+        wall_distance: "<?php echo C('pin_wall_distance');?>",
+        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+    },
+    //URL
+    url: {}
+};
+//语言项目
+var lang = {};
+<volist name=":L('js_lang')" id="val">lang.{$key} = "{$val}";</volist>
+</script>
+<pin:load type="js" href="__STATIC__/js/jquery/plugins/jquery.tools.min.js,__STATIC__/js/jquery/plugins/jquery.masonry.js,__STATIC__/js/jquery/plugins/formvalidator.js,__STATIC__/js/fileuploader.js,__STATIC__/js/pinphp.js,__STATIC__/js/front.js,__STATIC__/js/dialog.js,__STATIC__/js/wall.js,__STATIC__/js/item.js,__STATIC__/js/user.js,__STATIC__/js/album.js" />

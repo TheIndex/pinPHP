@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/space.css" />
+</head>
+<body>
+
+<include file="public:header" />
+
+<div class="main_wrap">
+    <include file="top" />
+
+    <div class="user_info_main">
+        <div class="info_title mb20 clearfix">
+            <h1 class="setting_tilte fl">{:L('user_info')}</h1>
+            <if condition="$visitor['id'] eq $user['id']">
+            <a class="fl setting" href="{:U('user/index')}" target="_blank">{:L('setting')}</a>
+            </if>
+        </div>
+        <dl class="info_detail clearfix">
+            <dd>{:L('gender')}：</dd>
+            <dt><if condition="$user['gender'] eq 0">{:L('female')}<else/>{:L('male')}</if></dt>
+            <dd>{:L('location')}：</dd>
+            <dt>{$user.province} {$user.city}&nbsp;</dt>
+            <dd>{:L('user_tag')}：</dd>
+            <dt>{$user.tags}&nbsp;</dt>
+            <dd>{:L('own_intro')}：</dd>
+            <dt><p class="clr6">{$user.intro}&nbsp;</p></dt>
+        </dl>
+    </div>
+
+</div>
+
+<include file="public:footer" />
+</body>
+</html>

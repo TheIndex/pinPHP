@@ -1,0 +1,11 @@
+<div class="dialog_topic_forward clearfix">
+    <p class="fw_root">{$topic.content}</p>
+    <form id="J_forward_form" action="{:U('topic/forward')}" method="post">
+    <div class="fwpa_tool mt5"><span class="green">{:L('input_allow_limit')}<b class="green">140</b>{:L('cnwords')}</span></div>
+    <textarea class="J_content fw_content" name="content"></textarea>
+    <div class="fw_submit_box">
+        <input type="submit" class="btn" value="{:L('ok')}" />
+    </div>
+    <input type="hidden" name="tid" value="{$topic.id}" />
+    </form>
+</div>

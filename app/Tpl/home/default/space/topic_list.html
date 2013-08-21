@@ -1,0 +1,44 @@
+<!--微博列表-->
+        <ul class="talk_l">
+            <volist name="topic_list" id="val">
+            <li class="J_feed talk_f" data-tid="{$val.id}">
+                <div class="talk_tag fr"><a class="t" href="javascript:;" target="_blank">{$val.add_time|fdate}</a></div>
+                <div class="hd"><a target="_blank" href="{:U('space/index', array('uid'=>$val['uid']))}"><img class="J_card r5" src="{:avatar($visitor['id'], '48')}" data-uid="{$val.uid}"></a></div>
+                <div class="J_feed_info tk">
+                    <div class="inf"><a target="_blank" href="{:U('space/index', array('uid'=>$val['uid']))}" alt="{$val.uname}" class="J_card n" data-uid="{$val.uid}">{$val.uname}</a></div>
+                    <p class="sms">{$val.content}</p>
+                    <!--原创-->
+                    <if condition="$val['type'] eq 0">
+                    <div class="J_pic pic fl" data-sid="{$val.src_id}" data-stype="{$val.src_type}">
+                        <if condition="$val['src_type'] eq 0">
+                        <div class="bigcursor r3 fl"><img src="{:attach(get_thumb($val['extra'], '_m'), 'item')}"></div>
+                        </if>
+                    </div>
+                    <div class="J_src src_info r5 mt10"></div>
+                    <else/>
+                    <!--转播-->
+                    <div class="q r5 clearfix">
+                        <p class="sms">
+                            <a href="{:U('space/index', array('uid'=>$val['qt']['uid']))}" class="J_card n" target="_blank" data-uid="{$val.qt.uid}">@{$val.qt.uname}</a>：{$val.qt.content}
+                            <a href="{:U('item/index', array('id'=>$val['qt']['src_id']))}" target="_blank">{:L('original_forward')}<if condition="$val['qt']['forwards'] gt 0">({$val.qt.forwards})</if></a>
+                            <a href="{:U('item/index', array('id'=>$val['qt']['src_id']))}" target="_blank">{:L('original_comment')}<if condition="$val['qt']['comments'] gt 0">({$val.qt.comments})</if></a>
+                        </p>
+                        <div class="J_pic pic fl" data-sid="{$val.qt.src_id}" data-stype="{$val.qt.src_type}">
+                            <div class="bigcursor r3 fl"><img src="{:attach(get_thumb($val['qt']['extra'], '_m'), 'item')}"></div>
+                        </div>
+                        <div class="J_src src_info r5 mt10"></div>
+                    </div>
+                    </if>
+                    <!--操作-->
+                    <div class="tl">
+                        <if condition="$visitor['id'] eq $val['uid']">
+                        <a href="javascript:;" class="J_del del">{:L('delete')}</a>
+                        </if>
+                        <a href="javascript:;" class="J_fw fw">{:L('forward')}<if condition="$val['forwards'] gt 0">({$val.forwards})</if></a>
+                        <a href="javascript:;" class="J_cmt cmt">{:L('comment')}<if condition="$val['comments'] gt 0">({$val.comments})</if></a>
+                    </div>
+                </div>
+            </li>
+            </volist>
+        </ul>
+        <div class="page_bar">{$page_bar}</div>

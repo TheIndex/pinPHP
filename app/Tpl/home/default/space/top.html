@@ -1,0 +1,62 @@
+<div class="pt25">
+    <div class="space_top mb25">
+        <div class="space_info clearfix">
+            <if condition="$user['cover'] neq '' AND ACTION_NAME eq 'index'">
+            <div class="space_cover" style="height:190px;background-image:url({:attach($user['cover'], 'cover')});">
+                <div class="iwc_ct"><h1>{$user.username}</h1></div>
+            </div>
+            <else/>
+            <div class="left fl">
+                <a href="{:U('space/index', array('uid'=>$user['id']))}" target="_blank"><img src="{:avatar($user['id'], 100)}" alt="" class="avatar fl r5"></a>
+                <div class="user_profile fl">
+                    <span class="uname">{$user.username}</span><br>
+                    <div class="home_follow">
+                        <if condition="$visitor['id'] eq $user['id']">
+                        <div class="see_more_info fl"><a target="_blank" href="{:U('space/info')}">{:L('user_info')}</a>(<a target="_blank" href="{:U('user/index')}">{:L('setting')}</a>)</div>
+                        <else/>
+                        <div class="J_follow_bar fl" data-uid="{$user.id}">
+                            <switch name="user.ship">
+                            <case value="0" break="1">
+                            <a href="javascript:;" class="J_fo_u fo_u_btn">{:L('follow')}</a>
+                            </case>
+                            <case value="1" break="1">
+                            <span class="fo_u_ok">{:L('followed')}</span><a href="javascript:;" class="J_unfo_u green">{:L('cancel')}</a>
+                            </case>
+                            <case value="2" break="1">
+                            <span class="fo_u_all">{:L('follow_mutually')}</span><a href="javascript:;" class="J_unfo_u green">{:L('cancel')}</a>
+                            </case>
+                            </switch>
+                        </div>
+                        <div class="see_more_info fl ml10">
+                            <a href="{:U('space/info', array('uid'=>$user['id']))}">{:L('see_user_info')}</a>
+                        </div>
+                        </if>
+                    </div>
+                </div>
+            </div>
+            <div class="right fr">
+                <div class="collect_list">
+                    <a href="{:U('space/follow', array('uid'=>$user['id']))}" class="ft18">{$user.follows}</a><br>
+                    <span>{:L('follow')}</span>
+                </div>
+                <div class="collect_list">
+                    <a href="{:U('space/fans', array('uid'=>$user['id']))}" class="ft18">{$user.fans}</a><br>
+                    <span>{:L('fans')}</span>
+                </div>
+                <div class="collect_list bd_none">
+                    <a class="ft18">{$user.likes}</a><br>
+                    <span>{:L('belike')}</span>
+                </div>
+            </div>
+            </if>
+        </div>
+        <div class="space_nav">
+            <volist name="space_nav_list" id="nav">
+            <a <if condition="$key eq $space_nav_curr">class="current"</if> href="{$nav.url}">{$nav.text}</a>
+            </volist>
+            <if condition="$visitor['id'] eq $user['id']">
+            <a class="cus_cover fr" href="{:U('user/custom')}">{:L('custom_cover')}</a>
+            </if>
+        </div>
+    </div>
+</div>

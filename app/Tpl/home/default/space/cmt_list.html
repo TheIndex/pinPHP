@@ -1,0 +1,16 @@
+<div class="J_cmt_pub cmt_b">
+    <div class="cmt_pub rt5 clearfix">
+        <textarea class="J_cmt_content pub_txt fl rl3"></textarea>
+        <input type="button" class="J_cmt_sub btn fl ml5" value="{:L('ok')}">
+    </div>
+    <ul class="cmt_l rb5">
+        <volist name="comment_list" id="val">
+        <li class="J_cmt_list" data-cid="{$val.id}">
+            <a href="{:U('space/index', array('uid'=>$val['uid']))}" class="J_card" target="_blank" data-uid="{$val.uid}"><img alt="{$val.uname}" class="avt" src="{:avatar($val['uid'], 48)}"></a>
+            <p class="sms"><a class="J_card n" target="_blank" href="{:U('space/index', array('uid'=>$val['uid']))}" data-uid="{$val.uid}">{$val.uname}</a>：{$val.content}（{$val.add_time|fdate}）</p>
+            <div><a class="J_cmt_del" href="javascript:;">{:L('delete')}</a><a class="J_cmt_reply" href="javascript:;">{:L('reply')}</a></div>
+        </li>
+        </volist>
+    </ul>
+    <div class="J_cmt_page page_bar">{$page_bar}</div>
+</div>

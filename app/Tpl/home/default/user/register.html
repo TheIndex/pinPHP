@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/user.css" />
+</head>
+<body>
+<div class="reg_wrap">
+<div class="header_wrap pt10">
+    <div class="m_head clearfix">
+        <div class="head_logo"><a href="__ROOT__/" class="logo_b fl" title="{:C('pin_site_name')}">{:C('pin_site_name')}</a></div>
+    </div>
+</div>
+<div class="main_wrap">
+    <div class="registerbox clearfix">
+        <div class="register_left">
+            <h1>{:L('register_title')}</h1>
+            <form id="J_register_form" action="{:U('user/register')}" method="post">
+            <div class="ipt_mail">
+                <span>{:L('email')}：</span><input type="text" maxlength="36" name="email" id="J_email" class="input_text">
+            </div>
+            <div class="ipt_ulike">
+                <span>{:L('username')}：</span><input maxlength="36" type="text" name="username" id="J_username" class="input_text">
+            </div>
+            <div class="ipt_sex">
+                <span>{:L('gender')}：</span>
+                <div class="rdo">
+                    <label><input type="radio" name="gender" value="0" checked="checked" class="ck"> {:L('female')}</label>
+                    <label><input type="radio" name="gender" value="1" class="ck ml10"> {:L('male')}</label>
+                </div>
+            </div>
+            <div class="ipt_password">
+                <span>{:L('password')}：</span><input maxlength="36" type="password" name="password" id="J_password" class="input_text">
+            </div>
+            <div class="ipt_respassword">
+                <span>{:L('confirm_password')}：</span><input type="password" maxlength="36" name="repassword" id="J_repassword" class="input_text">
+            </div>
+            <div class="ipt_check">
+                <span>{:L('captcha')}：</span><input type="text" name="captcha" id="J_captcha" maxlength="10" class="check input_text">
+                <img src="{:U('captcha/'.time())}" id="J_captcha_img" class="captcha_img" alt="{:L('captcha')}" data-url="{:U('captcha/js_rand')}">
+                <a href="javascript:;" id="J_captcha_change">{:L('change_captcha')}</a>
+            </div>
+            <div class="ipt_box">
+                <input class="box fl" name="agreement" type="checkbox" checked="checked"><span class="fl">{:L('i_agree')}《<a href="javascript:;" id="J_protocol_btn">{:C('pin_site_name')}{:L('user_protocol')}</a>》</span>
+            </div>
+            <div class="ipt_sub">
+                <input type="submit" id="J_regsub" class="sub" value="{:L('relaxed_register')}">
+            </div>
+            </form>
+        </div>
+        <div class="register_right">
+            <div class="rst_login">
+                <span>{:L('direct_login')}</span>
+                <a href="{:U('user/login')}">{:L('login')}</a>
+            </div>
+            <div class="other_login">
+                <span>{:L('other_login_model')}：</span>
+                <volist name="oauth_list" id="val">
+                <a href="{:U('oauth/index', array('mod'=>$val['code']))}" class="o_icon"><img src="__STATIC__/images/oauth/{$val.code}/icon.png" />{$val.name}</a>
+                </volist>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="public:footer" />
+<script>
+$(function(){
+    $.pinphp.user.register_form($('#J_register_form')); //注册验证
+});
+</script>
+<div id="J_protocol" class="hide"><pre class="dialog_protocol clr6">{:C('pin_reg_protocol')}</pre></div>
+</div>
+
+</body>
+</html>

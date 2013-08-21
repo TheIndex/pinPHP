@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body>
+<include file="public:header" />
+
+<div class="main_wrap pt20">
+    <include file="top" />
+
+    <present name="item_list">
+    <div class="cate_sort pt10 clearfix">
+        <h3 class="fl">{$q}</h3>
+        <span class="fl">
+            <em class="fl">{:L('sort_order')}：</em>
+            <ul class="fl">
+                <li><a href="{:U('search/index', array('q'=>$q, 't'=>$t, 'sort'=>'hot'))}" <if condition="$sort eq 'hot'">class="current"</if>>{:L('sort_hot')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('search/index', array('q'=>$q, 't'=>$t, 'sort'=>'new'))}" <if condition="$sort eq 'new'">class="current"</if>>{:L('sort_new')}</a></li>
+            </ul>
+        </span>
+    </div>
+
+    <div class="wall_wrap clearfix">
+        <div id="J_waterfall" class="wall_container clearfix" data-uri="__ROOT__/?m=search&a=index&q'=>{$q}&sort={$sort}&p={$p}">
+            <include file="public:waterfall" />
+        </div>
+        <present name="show_load">
+        <div id="J_wall_loading" class="wall_loading tc gray"><span>{:L('loading')}</span></div>
+        </present>
+        
+        <present name="page_bar">
+        <div id="J_wall_page" class="wall_page" <present name="show_page">style="display:block;"</present>>
+            <div class="page_bar">{$page_bar}</div>
+        </div>
+        </present>
+    </div>
+
+    <else/>
+    <div class="search_result_none">
+        <h1>{:sprintf(L('search_no_content'),$q)}</h1>
+    </div>
+    </present>
+</div>
+<include file="public:footer" />
+</body>
+</html>

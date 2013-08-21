@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/user.css" />
+</head>
+<body>
+<div class="login_wrap">
+<div class="header_wrap pt10">
+    <div class="m_head clearfix">
+        <div class="head_logo"><a href="__APP__" class="logo_b fl" title="{:C('pin_site_name')}">{:C('pin_site_name')}</a></div>
+    </div>
+</div>
+<div class="main_wrap">
+    <div class="findpwd clearfix">
+        <div class="findpwd_center fl">
+            <h1>{:L('resetpwd_title')}</h1>
+            <div class="resetpwd_form clearfix">
+                <form id="J_resetpwd_form" action="" method="post">
+                    <div class="rp_pass">
+                        <span>{:L('password')}：</span><input maxlength="36" type="password" name="password" id="J_password" class="input_text">
+                    </div>
+                    <div class="rp_repass">
+                        <span>{:L('confirm_password')}：</span><input type="password" maxlength="36" name="repassword" id="J_repassword" class="input_text">
+                    </div>
+                    <div class="rp_chk clearfix"> 
+                        <span>{:L('captcha')}：</span>
+                        <input type="text" name="captcha" id="J_captcha" class="input_text" maxlength="10">
+                        <img src="{:U('captcha/index', array('t'=>time()))}" id="J_captcha_img" class="captcha_img" alt="{:L('captcha')}" data-url="{:U('captcha/index')}">
+                        <a href="javascript:;" id="J_captcha_change">{:L('change_captcha')}</a>
+                    </div>
+                    <div class="rp_sub clearfix">
+                        <input type="submit" class="btn" value="{:L('next_step')}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer" />
+<script>
+$(function(){
+    $.pinphp.user.resetpwd_form(); //登陆验证
+});
+</script>
+</div>
+</body>
+</html>

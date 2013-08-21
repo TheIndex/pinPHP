@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/user.css" />
+</head>
+<body>
+<div class="login_wrap">
+<div class="header_wrap pt10">
+    <div class="m_head clearfix">
+        <div class="head_logo"><a href="__ROOT__/" class="logo_b fl" title="{:C('pin_site_name')}">{:C('pin_site_name')}</a></div>
+    </div>
+</div>
+<div class="main_wrap">
+    <div class="binding clearfix">
+        <div class="binding_center fl">
+            <h1>{:L('binding_title')}</h1>
+            <div class="bind_form clearfix">
+                <div class="bd_avatar fl mr20">
+                    <notempty name="user_bind_info['temp_avatar']">
+                    <img src="__UPLOAD__/avatar/temp/{$user_bind_info.temp_avatar}" class="r5">
+                    <else/>
+                    <img src="{:avatar(0, 100)}" class="r5">
+                    </notempty>
+                </div>
+                <div class="bd_info fl">
+                    <form id="J_bind_form" action="{:U('user/register')}" method="post">
+                    <div class="bd_name clearfix">
+                        <span class="fl">{:L('username')}：</span>
+                        <input type="text" name="username" id="J_username" class="input_text" maxlength="20" value="{:urldecode($user_bind_info['pin_user_name'])}">
+                    </div>
+                    <div class="bd_email clearfix">
+                        <span class="fl">{:L('email')}：</span><input type="text" maxlength="36" name="email" id="J_email" class="input_text">
+                    </div>
+                    <div class="bd_pass clearfix">
+                        <span class="fl">{:L('password')}：</span><input maxlength="36" type="password" id="J_password" name="password" class="input_text">
+                    </div>
+                    <div class="bd_repass clearfix">
+                        <span class="fl">{:L('confirm_password')}：</span><input type="password" maxlength="36" id="J_repassword" name="repassword" class="input_text">
+                    </div>
+                    <div class="lg_login clearfix">
+                        <input type="hidden" name="type" value="bind">
+                        <input type="submit" value="{:L('ok')}" class="sub">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer" />
+</div>
+</body>
+</html>

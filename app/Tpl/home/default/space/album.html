@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/space.css" />
+</head>
+<body>
+
+<include file="public:header" />
+
+<div class="main_wrap">
+	<include file="top" />
+
+    <div class="space_toolbar pb10 clearfix">
+        <if condition="$user['id'] eq $visitor['id']">
+        <a class="J_createalbum_btn btn fl mr15" href="javascript:;">{:L('create_album')}</a>
+        </if>
+        <p class="fl space_toolbar_sort">
+            {:L('sort_order')}：
+            <a href="{:U('space/album', array('uid'=>$user['id'], 'type'=>$type))}" <if condition="$sort eq 'new'">class="current"</if>>{:L('sort_new')}</a>
+            <a href="{:U('space/album', array('uid'=>$user['id'], 'type'=>$type,'sort'=>'hot'))}" class="bd_none <if condition="$sort eq 'hot'">current</if>">{:L('sort_hot')}</a>
+        </p>
+        <if condition="$user['id'] eq $visitor['id']">
+        <ul class="space_toolbar_nav fr ft14">
+           <li class="bd_none"><a href="{:U('space/album', array('type'=>'followed'))}" <if condition="$type eq 'followed'">class="current"</if>>{:L('my_followed_album')}</a></li>
+           <li><a href="{:U('space/album')}" <if condition="$type eq 'pub'">class="current"</if>>{:L('i_published')}</a></li>
+        </ul>
+        </if>
+    </div>
+
+	<div class="space_album_wrap pt10 clearfix">
+        <ul class="album_list clearfix">
+            <volist name="album_list" id="album">
+            <li class="J_album_item album_item" data-aid="{$album.id}">
+                <ul>
+                    <for start="0" end=":C('pin_album_cover_items')">
+                        <li class="<if condition="$i eq 0">big<elseif condition="$i eq 1"/>left small<else/>small</if>">
+                            <present name="album['cover'][$i]">
+                            <if condition="$i eq 0">
+                            <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($album['cover'][$i]['img'], '_m'), 'item'))}" />
+                            <else/>
+                            <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($album['cover'][$i]['img'], '_s'), 'item'))}" />
+                            </if>
+                            </present>
+                        </li>
+                    </for>
+                </ul>
+                <h4><a target="_blank" href="{:U('album/detail', array('id'=>$album['id']))}" title="{$album.title}">{$album.title}</a></h4>
+                <p class="num"><a target="_blank" href="{:U('album/detail', array('id'=>$album['id']))}">{$album.items}{:L('piece_items')}</a></p>
+                <a target="_blank" href="{:U('album/detail', array('id'=>$album['id']))}" class="album_link"></a>
+                <if condition="$user['id'] eq $visitor['id']">
+                <div class="J_control edit">
+                    <a href="javascript:;" class="J_shareitem_btn add" data-aid="{$album.id}"> + {:L('album_add_item')}</a>
+                    <a href="javascript:;" class="J_edit">{:L('edit')}</a>
+                    <a href="javascript:;" class="J_del">{:L('delete')}</a>
+                </div>
+                </if>
+            </li>
+            </volist>
+            <if condition="$user['id'] eq $visitor['id'] AND $type neq 'followed'">
+            <li class="album_item"><a class="J_createalbum_btn add_album btn" href="javascript:;">{:L('create_album')}</a></li>
+            </if>
+        </ul>
+        <div class="page_bar">{$page_bar}</div>
+    </div>
+</div>
+
+<include file="public:footer" />
+</body>
+</html>

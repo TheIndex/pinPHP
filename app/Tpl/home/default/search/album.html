@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body>
+<include file="public:header" />
+
+<div class="main_wrap pt20">
+    <include file="top" />
+
+    <present name="album_list">
+    <div class="cate_sort pt10 clearfix">
+        <h3 class="fl">{$q|default=L('search')}</h3>
+        <span class="fl">
+            <em class="fl">{:L('sort_order')}：</em>
+            <ul class="fl">
+                <li><a href="{:U('search/index', array('q'=>$q, 't'=>$t, 'sort'=>'hot'))}" <if condition="$sort eq 'hot'">class="current"</if>>{:L('sort_hot')}</a></li>
+                <li><i>|</i></li>
+                <li><a href="{:U('search/index', array('q'=>$q, 't'=>$t, 'sort'=>'new'))}" <if condition="$sort eq 'new'">class="current"</if>>{:L('sort_new')}</a></li>
+            </ul>
+        </span>
+    </div>
+
+    <div class="album_wrap clearfix">
+        <ul class="album_list clearfix">
+            <volist name="album_list" id="album">
+            <li class="J_album_item album_item">
+                <div class="album_author">
+                    <a target="_blank" href="{:U('space/index', array('uid'=>$album['uid']))}">
+                    <img src="{:avatar($album['uid'], '32')}" class="J_card avt fl " data-uid="{$album.uid}" alt="{$album.uname}">
+                    </a>
+                    <div class="album_info">
+                        <p><a title="{$album.title}" href="{:U('album/detail', array('id'=>$album['id']))}" class="album_title" target="_blank">{$album.title}</a></p>
+                        <p class="u_link"><a href="{:U('space/index', array('uid'=>$album['uid']))}" class="J_card n" data-uid="{$album.uid}" target="_blank">{$album.uname}</a></p>
+                    </div>
+                </div>
+                <ul>
+                    <for start="0" end=":C('pin_album_cover_items')">
+                    <li class="<if condition="$i eq 0">big<elseif condition="$i eq 1"/>left small<else/>small</if>">
+                        <present name="album['cover'][$i]">
+                        <if condition="$i eq 0">
+                        <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($album['cover'][$i]['img'], '_m'), 'item'))}" />
+                        <else/>
+                        <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($album['cover'][$i]['img'], '_s'), 'item'))}" />
+                        </if>
+                        </present>
+                    </li>
+                    </for>
+                </ul>
+                <a href="{:U('album/detail', array('id'=>$album['id']))}" class="album_link" target="_blank"></a>
+            </li>
+            </volist>
+        </ul>
+    </div>
+    <div class="page_bar">{$page_bar}</div>
+    <else/>
+    <div class="search_result_none">
+        <h1>{:sprintf(L('search_no_content'),$q)}</h1>
+    </div>
+    </present>
+    
+</div>
+<include file="public:footer" />
+</body>
+</html>

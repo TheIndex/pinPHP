@@ -1,0 +1,10 @@
+<div class="setting_bar fl">
+	<volist name="user_menu_list" id="menu">
+    <h1 class="{$key}">{$menu.text}</h1>
+    <div class="base_info">
+    	<volist name="menu['submenu']" id="smenu">
+    	<a href="{$smenu.url}" <if condition="$user_menu_curr eq $key">class="c"</if>>{$smenu.text}</a><br>
+    	</volist>
+    </div>
+    </volist>
+</div>

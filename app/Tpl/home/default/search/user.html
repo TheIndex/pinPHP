@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+</head>
+<body>
+<include file="public:header" />
+
+<div class="main_wrap pt20">
+    <include file="top" />
+    <present name="user_list">
+    <div class="search_user_box mt20">
+        <p class="search_user_title">有{$count}位与“{$q}”相关的用户结果</p>
+        <ul class="people_list clearfix">
+            <volist name="user_list" id="val">
+            <li class="J_pl clearfix" data-uid="{$val.id}">
+                <a href="{:U('space/index', array('uid'=>$val['id']))}"><img alt="{$val.username}" class="J_card fl r5" src="{:avatar($val['id'], 48)}" data-uid="{$val.id}" /></a>
+                <div class="people_info"> <a class="n gc" href="{:U('space/index', array('uid'=>$val['id']))}">{$val.username}</a><br>
+                    <span>{:L('fans')}{$val.fans}人</span>
+                </div>
+            </li>
+            </volist>
+        </ul>
+    </div>
+    <div class="page_bar">{$page_bar}</div>
+    <else/>
+    <div class="search_result_none">
+        <h1>{:sprintf(L('search_no_content'),$q)}</h1>
+    </div>
+    </present>
+</div>
+<include file="public:footer" />
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/space.css" />
+</head>
+<body>
+
+<include file="public:header" />
+<div class="main_wrap">
+    <include file="top" />
+
+    <div class="space_toolbar pb10 clearfix">
+        <p class="fl space_toolbar_sort">
+            {:L('sort_order')}：
+            <a href="{:U('space/item', array('uid'=>$user['id']))}" <if condition="$sort eq 'new'">class="current"</if>>{:L('sort_new')}</a>
+            <a href="{:U('space/item', array('uid'=>$user['id'], 'sort'=>'hot'))}" class="bd_none <if condition="$sort eq 'hot'">current</if>">{:L('sort_hot')}</a>
+        </p>
+    </div>
+
+    <div class="wall_wrap clearfix">
+        <div id="J_waterfall" class="wall_container clearfix" data-uri="__ROOT__/?m=space&a=item&uid={$user.id}&sort={$sort}&p={$p}">
+            <include file="public:waterfall" />
+        </div>
+        <present name="show_load">
+        <div id="J_wall_loading" class="wall_loading tc gray"><span>{:L('loading')}</span></div>
+        </present>
+
+        <present name="page_bar">
+        <div id="J_wall_page" class="wall_page" <present name="show_page">style="display:block;"</present>>
+            <div class="page_bar">{$page_bar}</div>
+        </div>
+        </present>
+    </div>
+</div>
+
+<include file="public:footer" />
+</body>
+</html>

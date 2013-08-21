@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<include file="public:head" />
+<css file="__STATIC__/css/default/item.css" />
+</head>
+<body>
+<include file="public:header" />
+<!--商品详细-->
+<div class="main_wrap pt10" style="_padding-left:0;">
+    <div class="mt10">{:R('advert/index', array(14), 'Widget')}</div>
+    <div class="itembox clearfix">
+        <div class="itembox_l fl">
+            <div class="note_box clearfix">
+                <div id="J_item_gallery" class="show_body">
+                    <div class="J_item img_show">
+                        <a target="_blank" href="__ROOT__/?m=item&a=tgo&to={:base64_encode($item['url'])}">
+                            <div id="J_img_zoom" class="img_zoom"><img alt="{$item.title}" class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($img_list[0]['url'], '_b'), 'item'))}" jqimg="{:attach($img_list[0]['url'], 'item')}"></div>
+                        </a>
+                        <a href="javascript:;" class="J_joinalbum addalbum_btn" data-id="{$item.id}"></a>
+                    </div>
+                    <div class="img_list clearfix">
+                        <ul id="J_img_list" class="fl">
+                            <volist name="img_list" id="img">
+                            <li data-url="{:attach(get_thumb($img['url'], '_b'), 'item')}" <if condition="$i eq 1">class="active"</if>><img alt="{$item.title}" class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($img['url'], '_s'), 'item'))}"></li>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+                <notempty name="maylike_list">
+                <h3 class="may_fav_title">{:L('guess_you_like_title')}</h3>
+                <volist name="maylike_list" id="mval">
+                <div class="slide_show">
+                    <h3><a href="{:U('book/index', array('tag'=>$mval['name']))}" class="more" target="_blank">{:L('show_more')}...</a>{$mval.name}</h3>
+                    <ul class="clearfix">
+                        <volist name="mval['list']" id="mitem">
+                        <li>
+                            <a href="{:U('item/index', array('id'=>$mitem['id']))}" class="show_img" target="_blank">
+                            <img class="J_decode_img" data-uri="{:base64_encode(attach(get_thumb($mitem['img'], '_m'), 'item'))}" alt="{$mitem.title}">
+                            </a>
+                        </li>
+                        </volist>
+                    </ul>
+                </div>
+                </volist>
+                </notempty>
+            </div>
+        </div>
+	
+        <div class="itembox_r fr">
+            <div class="item_link mb20">
+                <img src="{:attach($orig['img'], 'item_orig')}">
+                <a href="__ROOT__/?m=item&a=tgo&to={:base64_encode($item['url'])}" class="shop_link" rel="nofollow" title="{$item.title}" target="_blank">{$item.title}</a>
+                <a href="__ROOT__/?m=item&a=tgo&to={:base64_encode($item['url'])}" class="buy_link" rel="nofollow" target="_blank"><b>¥{$item.price} {:sprintf(L('go_to_buy'), $orig['name'])}</b><i></i></a>
+            </div>
+            <notempty name="item['tag_list']">
+            <div class="item_tags pt10 clearfix">
+                <p>
+                    {:L('tag')}：
+                    <volist name="item['tag_list']" id="tag">
+                    <a href="{:U('book/index', array('tag'=>urlencode($tag)))}" target="_blank">{$tag}</a>
+                    </volist>
+                </p>
+            </div>
+            </notempty>
+            <div class="shareinfo mb20">
+                <div class="shareinfo_u clearfix">
+                    <a href="{:U('space/index', array('uid'=>$item['uid']))}" target="_blank"><img alt="{$item.uname}" class="J_card fl r3" src="{:avatar($item['uid'], 48)}" data-uid="{$item.uid}" /></a>
+                    <div class="user_info">
+                        <a href="{:U('space/index', array('uid'=>$item['uid']))}" class="J_card n" data-uid="{$item.uid}" target="_blank">{$item.uname}</a><br>
+                        <p class="saytime">{$item.add_time|fdate}</p>
+                    </div>
+                </div>
+                <notempty name="item['intro']">
+                <p class="shareinfo_t">{$item.intro}</p>
+                </notempty>
+                <div class="share_box">
+                    <div class="favorite fl">
+                        <a href="javascript:;" class="J_likeitem like_btn" data-id="{$item.id}">{:L('like')}</a>
+                        <div class="J_like_n like_count fl"><a target="_blank">{$item.likes}</a><i></i></div>
+                    </div>
+                    <div class="fr mt15">
+                        <!-- Baidu Button BEGIN -->
+                        <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                        <span class="bds_more"></span>
+                        <a class="bds_tsina"></a>
+                        <a class="bds_qzone"></a>
+                        <a class="bds_tqq"></a>
+                        <a class="bds_renren"></a>
+                        </div>
+                        <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=0" ></script>
+                        <script type="text/javascript" id="bdshell_js"></script>
+                        <script type="text/javascript">
+                        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+                        </script>
+                        <!-- Baidu Button END -->
+                    </div>
+                </div>
+            </div>
+            <div id="J_comment_area" class="comment_area"  data-id="{$item.id}">
+                <h3>{:L('comment_area')}</h3>
+                <div class="comment_publish">
+                    <div class="pub_box"><textarea id="J_cmt_content" name="content" class="pub_content" def-val="{:L('item_cmt_def')}">{:L('item_cmt_def')}</textarea></div>
+                    <div class="pub_act"><a href="javascript:;" id="J_cmt_submit" class="submit r3 fr">{:L('ok')}</a></div>
+                </div>
+                <div class="comment_list">
+                    <ul id="J_cmt_list">
+                        <volist name="cmt_list" id="val">
+                        <li> 
+                            <a href="{:U('space/index', array('uid'=>$val['uid']))}" target="_blank"><img src="{:avatar($val['uid'], 48)}" class="J_card avt" data-uid="{$val.uid}" /></a>
+                            <p><a href="{:U('space/index', array('uid'=>$val['uid']))}" class="J_card n" data-uid="{$val.uid}" target="_blank">{$val.uname}</a></p>
+                            <p>{$val.info}<span>&nbsp;&nbsp;&nbsp;{$val.add_time|fdate}</span></p>
+                        </li>
+                        </volist>
+                    </ul>
+                    <div id="J_cmt_page" class="page_bar">{$page_bar}</div>
+                </div>
+            </div>
+            {:R('advert/index', array(13), 'Widget')}
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/js/jquery/plugins/jquery.jqzoom.js"></script>
+<script src="__STATIC__/js/jquery/plugins/jquery.jcarousel.js"></script>
+<include file="public:footer" />
+<script src="__STATIC__/js/comment.js"></script>
+</body>
+</html>

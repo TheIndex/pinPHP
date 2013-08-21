@@ -1,0 +1,23 @@
+<div class="search_top clearfix">
+    <div class="search_top_left">
+        <div class="search_tab clearfix mb15">
+            <a <if condition="$t eq 'item'">class="current"</if> href="{:U('search/index', array('q'=>$q, 't'=>'item'))}">宝贝</a>
+            <a <if condition="$t eq 'album'">class="current"</if> href="{:U('search/index', array('q'=>$q, 't'=>'album'))}">专辑</a>
+            <a <if condition="$t eq 'user'">class="current"</if> href="{:U('search/index', array('q'=>$q, 't'=>'user'))}">找人</a>
+        </div>   
+        <form class="search_form_box" action="__ROOT__/" method="get">
+            <input type="hidden" name="m" value="search">
+            <input type="text" class="search_input" name="q" value="{$q}">
+            <input type="hidden" name="t" value="{$t}">
+            <input type="submit" class="search_btn" value="搜  索">
+        </form>
+    </div>
+    <div class="my_search_history">
+        <h2 class="my_last_search">我最近的搜索</h2><a href="{:U('search/clear_history')}" class="clear_history">清空记录</a>
+        <ul class="history_list">
+            <volist name="search_history" id="sh">
+            <li><a href="{:U('search/index', array('q'=>$sh['q'], 't'=>$sh['t']))}">{:urldecode($sh['q'])}</a></li>
+            </volist>
+        </ul>
+    </div>
+</div>
